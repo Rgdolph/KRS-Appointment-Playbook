@@ -1,0 +1,922 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap');
+
+:root {
+  --navy: #0F2B45;
+  --navy-mid: #1A3D5C;
+  --accent: #3B82F6;
+  --accent-glow: rgba(59, 130, 246, 0.12);
+  --accent-text: #2563EB;
+  --surface: #FFFFFF;
+  --surface-alt: #F8FAFC;
+  --surface-hover: #F1F5F9;
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+  --text: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --tag-bg: #EFF6FF;
+  --tag-text: #1D4ED8;
+  --warn-bg: #FEF3C7;
+  --warn-text: #92400E;
+  --green: #10B981;
+  --green-bg: #ECFDF5;
+  --green-text: #065F46;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-md: 0 4px 12px rgba(15,23,42,0.08), 0 2px 4px rgba(15,23,42,0.04);
+  --shadow-lg: 0 10px 30px rgba(15,23,42,0.1), 0 4px 8px rgba(15,23,42,0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--surface-alt);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { display: flex; height: 100vh; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 272px;
+  min-width: 272px;
+  background: var(--navy);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+.sidebar-brand {
+  padding: 24px 22px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-brand h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+
+.sidebar-brand .brand-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+  margin-top: 3px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nav-section {
+  padding: 16px 0 4px;
+}
+
+.nav-group-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0 22px 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 22px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.15s ease;
+  user-select: none;
+  gap: 8px;
+}
+
+.nav-item:hover {
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.05);
+}
+
+.nav-item.active {
+  color: #FFFFFF;
+  background: rgba(59, 130, 246, 0.15);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+
+.nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
+.nav-item.active .nav-dot { background: var(--accent); }
+.nav-item:hover .nav-dot { background: rgba(255,255,255,0.5); }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 22px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-footer span {
+  font-size: 10px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.04em;
+}
+
+/* ── Main ── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 36px 44px;
+  background: var(--surface-alt);
+}
+
+.main::-webkit-scrollbar { width: 6px; }
+.main::-webkit-scrollbar-track { background: transparent; }
+.main::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+
+.page-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.page-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+/* ── Context box ── */
+.context-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  background: var(--tag-bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(59,130,246,0.12);
+}
+
+.context-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: 11px;
+  color: white;
+  font-weight: 700;
+}
+
+.context-text {
+  font-size: 13px;
+  color: var(--accent-text);
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+/* ── Script card ── */
+.script-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s;
+}
+
+.script-card:hover { box-shadow: var(--shadow-md); }
+
+.script-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.script-label::before {
+  content: '';
+  width: 16px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+.script-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.placeholder {
+  display: inline;
+  background: var(--warn-bg);
+  color: var(--warn-text);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+  margin: 32px 0;
+}
+
+/* ── Objections ── */
+.objections-section { margin-top: 0; }
+
+.objections-header {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.objections-header::before {
+  content: '';
+  width: 3px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.objection-reminder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  background: var(--green-bg);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-text);
+  line-height: 1.4;
+}
+
+.objection-reminder-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 12px;
+  color: white;
+}
+
+/* ── Lead types ── */
+.lead-types-section {
+  margin-bottom: 20px;
+}
+
+.lead-types-header {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lead-types-header::before {
+  content: '';
+  width: 3px;
+  height: 14px;
+  background: var(--warn-text);
+  border-radius: 2px;
+}
+
+.lead-types-hint {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 10px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.lead-types-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lead-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 6px;
+  background: var(--warn-bg);
+  color: var(--warn-text);
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.lead-tag-filter {
+  background: var(--tag-bg);
+  color: var(--accent-text);
+  border: 1px dashed rgba(59, 130, 246, 0.35);
+}
+
+.objection-item {
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+
+.objection-item:hover { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-glow), var(--shadow-sm); }
+
+.objection-q {
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.objection-q:hover { background: var(--surface-hover); }
+
+.chevron {
+  font-size: 10px;
+  color: var(--text-muted);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.chevron.open { transform: rotate(180deg); color: var(--accent); }
+
+.objection-a {
+  padding: 16px 18px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text);
+  border-top: 1px solid var(--border-light);
+  display: none;
+  background: var(--surface-alt);
+}
+
+.objection-a.open { display: block; animation: fadeSlide 0.2s ease; }
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 840px) {
+  .container { flex-direction: column; }
+  .sidebar {
+    width: 100%; min-width: 100%; height: auto;
+    flex-direction: row; flex-wrap: wrap; padding: 12px 16px; gap: 4px;
+  }
+  .sidebar-brand { width: 100%; padding: 8px 4px 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .nav-group-label { width: 100%; padding: 8px 4px 2px; }
+  .nav-item { padding: 6px 12px; border-left: none; border-radius: 6px; font-size: 12px; }
+  .nav-item.active { border-left: none; border-radius: 6px; }
+  .nav-dot { display: none; }
+  .sidebar-footer { display: none; }
+  .main { padding: 20px 16px; }
+  .page-title { font-size: 20px; }
+  .script-card { padding: 18px 20px; }
+}
+</style>
+
+<div class="container">
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <h2>KRS Appointment Playbook</h2>
+      <div class="brand-sub">Script &amp; Objection Library</div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-group-label">Medicare</div>
+      <div class="nav-item active" onclick="show('med-standard')"><span class="nav-dot"></span>Standard</div>
+      <div class="nav-item" onclick="show('med-t65')"><span class="nav-dot"></span>T65 (turning 65)</div>
+      <div class="nav-item" onclick="show('med-rate')"><span class="nav-dot"></span>Rate reduction</div>
+      <div class="nav-item" onclick="show('med-datacapture')"><span class="nav-dot"></span>Data capture</div>
+      <div class="nav-item" onclick="show('med-uhcgroup')"><span class="nav-dot"></span>UHC group (T65)</div>
+      <div class="nav-item" onclick="show('med-uhcclosed')"><span class="nav-dot"></span>UHC closed lost</div>
+      <div class="nav-item" onclick="show('med-wellcare')"><span class="nav-dot"></span>Wellcare leads</div>
+      <div class="nav-item" onclick="show('med-irmaa')"><span class="nav-dot"></span>IRMAA leads</div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-group-label">Affinity</div>
+      <div class="nav-item" onclick="show('aff-amlegwellcare')"><span class="nav-dot"></span>AmLeg Wellcare</div>
+      <div class="nav-item" onclick="show('aff-requested')"><span class="nav-dot"></span>Requested info</div>
+      <div class="nav-item" onclick="show('aff-cold')"><span class="nav-dot"></span>Cold list</div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-group-label">Long Term Care</div>
+      <div class="nav-item" onclick="show('ltc-affinity')"><span class="nav-dot"></span>LTC affinity groups</div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-group-label">Final Expense</div>
+      <div class="nav-item" onclick="show('fe-standard')"><span class="nav-dot"></span>Standard</div>
+      <div class="nav-item" onclick="show('fe-tanya')"><span class="nav-dot"></span>Tanya Gilley orphan</div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-group-label">Retirement</div>
+      <div class="nav-item" onclick="show('ret-standard')"><span class="nav-dot"></span>Retirement planning</div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-group-label">Orphan</div>
+      <div class="nav-item" onclick="show('orp-medicare')"><span class="nav-dot"></span>Orphan Medicare</div>
+      <div class="nav-item" onclick="show('orp-bankers')"><span class="nav-dot"></span>Banker's orphan</div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-group-label">Seminars</div>
+      <div class="nav-item" onclick="show('sem-ss')"><span class="nav-dot"></span>SS seminar</div>
+      <div class="nav-item" onclick="show('sem-medicare')"><span class="nav-dot"></span>Medicare seminar</div>
+    </div>
+
+    <div class="sidebar-footer">
+      <span>KRS Geneva &middot; Key Retirement Solutions</span>
+    </div>
+  </div>
+
+  <div class="main" id="main-content"></div>
+</div>
+
+<script>
+const ph = (text) => `<span class="placeholder">[${text}]</span>`;
+
+// ── Script-specific objections ──
+const obj = {
+
+  medicare: [
+    { q: `"I'm not interested."`, a: `Totally fair. I'm not calling to sell you anything today. I just review people's Medicare options to make sure they're not overpaying. I want to make sure you're in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"What is this about?"`, a: `Good question. I work with all the top Medicare carriers in the state, so I help people make sure they're seeing everything available to them. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already have Medicare."`, a: `I'd be worried if you didn't! That's actually why I'm calling. Most people I sit down with find out they're either paying too much or missing benefits they qualify for. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I have [Carrier] and I'm happy."`, a: `That's great, and I actually work with ${ph('Carrier')}. Here's the thing though, all these plans cover the same things. The only difference is what you're paying. Let me show you a side-by-side so you know for sure. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want to switch."`, a: `Not asking you to. If we sit down and your current plan is the best deal, I'll tell you that. But if there's money on the table, you'd want to know, right? I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I have a supplement already."`, a: `Perfect. Most people I work with do. I just run a quick comparison to make sure you're getting the best rate on what you already have. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  t65: [
+    { q: `"I'm not interested."`, a: `Totally fair. I'm not calling to sell you anything. I just help people who are coming up on 65 make sure they understand their Medicare options before their enrollment window opens. I want to make sure you're in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I'm not turning 65 for a while."`, a: `That's actually the best time to start looking at this. Most people wish they'd started sooner because there are some deadlines that can cost you if you miss them. I just want to make sure you're set up right before anything kicks in. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I'll just stay on my employer plan."`, a: `You might be able to, and that could be the right move. But there are some things you'll want to know about how your employer plan works alongside Medicare once you turn 65. I just want to make sure you have the full picture so there aren't any surprises. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't know anything about Medicare."`, a: `That's exactly why I'm calling. Most people turning 65 have a lot of questions and there's a lot of confusing information out there. I break it all down so it actually makes sense. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"My spouse handles all of that."`, a: `Perfect. Let's find a time that works for both of you. This is something you'll both want to hear. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better for you two?` },
+    { q: `"I already have someone helping me."`, a: `Good. I just want to make sure you've seen all the options. I work with all the top carriers in the state, so I can show you a side-by-side. If you're already in the best spot, I'll tell you that. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  medicareRate: [
+    { q: `"I'm not interested."`, a: `I hear you. I'm just checking to see if the recent changes to Medicare qualify you for a lower rate on your ${ph('Carrier')} plan. If they don't, I'll let you know. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"My rate is fine."`, a: `That's good to hear. What I find though is that a lot of people don't realize their rate has gone up or that they're now eligible for a better option. I just want to make sure you're not paying more than you need to. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already had someone review my plan."`, a: `Good. When was the last time? Things change every year with Medicare and what wasn't available before might be now. I just want to make sure you're still in the best position. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want to switch."`, a: `Not asking you to switch anything. I'm just checking to see if you qualify for a reduction on what you already have. If your plan is the best deal, I'll tell you that. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"What changes are you talking about?"`, a: `Great question. Medicare carriers adjust their rates and benefits every year. What I do is compare your current plan against everything that's available now to make sure you're still getting the best deal. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  uhcGroup: [
+    { q: `"I'm not interested."`, a: `I understand. The reason I'm calling though is that your UHC group plan has some changes coming up as you move to Medicare, and there are some deadlines you'll want to be aware of. I just want to make sure you're set up right before anything changes. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"My employer is handling it."`, a: `They'll handle the group plan side, but the Medicare transition is on you. That's the part I help with. I just want to make sure you have everything lined up so there aren't any gaps when your coverage changes. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already have someone helping me."`, a: `Good. I just want to make sure you've seen all the options available specifically for people transitioning off a UHC group plan. If you're all set, I'll tell you that. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  uhcClosed: [
+    { q: `"I'm not interested."`, a: `Totally fair. I'm just circling back because you'd reached out about UHC Medicare before and I want to make sure we got that taken care of for you. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already took care of it."`, a: `Good to hear. I just want to make sure what you ended up with is still the best fit. Things change year to year and it's worth a quick look. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"That was a long time ago."`, a: `I know, and I apologize for the delay. The good news is the information I have for you is completely up to date. I just want to make sure you're in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I went with a different plan."`, a: `No problem at all. I just want to make sure what you're on is still the best deal. I work with all the carriers so I can do a quick comparison. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  wellcare: [
+    { q: `"I'm not interested."`, a: `I hear you. I'm just following up because you'd reached out about Wellcare Medicare and I want to make sure we got that taken care of. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already have a Wellcare plan."`, a: `Good. That's actually one of the carriers I work with. I just want to make sure you're still on the best version of that plan and not missing anything. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I went with something else."`, a: `No problem. I just want to make sure what you ended up with is still working for you. I work with all the carriers so I can run a quick comparison. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"That was a long time ago."`, a: `I know, and I appreciate your patience. The information I have for you is completely current. I just want to make sure you're in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  irmaa: [
+    { q: `"I'm not interested."`, a: `I understand. Most people don't realize they might be overpaying on their Medicare premiums because of IRMAA. If there's a way to reduce or eliminate that surcharge, you'd want to know, right? I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"My accountant handles that."`, a: `Good. What I focus on is specifically the IRMAA surcharge side of things, which is a different angle than what most accountants look at. I work alongside accountants and financial advisors all the time. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I didn't know I was paying a surcharge."`, a: `A lot of people don't. If your income is above a certain threshold, Medicare adds a surcharge on top of your regular premium. That's what I help people look at. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already have a financial advisor."`, a: `Good, you should. I work alongside advisors all the time. What I specialize in is specifically the Medicare surcharge reduction strategies, which is a different lane. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  affinityWellcare: [
+    { q: `"I'm not interested."`, a: `I hear you. As a Legion member, this is actually one of your benefits through the American Senior Benefits partnership. I just want to make sure your drug plan is still the best fit for you. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"My drug plan is fine."`, a: `Good to hear. What I see a lot though is that drug formularies change every year, and sometimes what was the best plan last year isn't anymore. I just want to make sure you're still in the best position. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"How did you get my information?"`, a: `Great question. American Senior Benefits is a national partner of the American Legion, and as a member this review is actually a benefit available to you. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already had my plan reviewed."`, a: `Good. When was the last time? Formularies and pricing change every year. I just want to make sure you're still getting the best deal as a Legion member. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  affinityRequested: [
+    { q: `"I'm not interested."`, a: `Totally understand. As a partner of ${ph('Group Name')} I just make sure every member gets the information they requested. I want to make sure you're in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already took care of that."`, a: `Good to hear. I just want to make sure everything's still working in your favor and you're getting the best rates available through your membership. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"How did you get my information?"`, a: `Great question. American Senior Benefits is a national partner of ${ph('Group Name')}, and you'd actually reached out through your membership requesting this information. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"That was a while ago."`, a: `I know, and I appreciate your patience. The information I have for you is completely current. I just want to make sure you get what you asked for. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  affinityCold: [
+    { q: `"I'm not interested."`, a: `I hear you. As a partner of ${ph('Group Name')} I just make sure every member knows what's available to them. I want to make sure you're in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"How did you get my information?"`, a: `Great question. American Senior Benefits is a national partner of ${ph('Group Name')}. As a member, you have access to some benefits that a lot of people don't know about. I just want to make sure you're aware of them. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already have coverage."`, a: `Good. I just want to make sure you're getting the best rates available specifically through your ${ph('Group Name')} membership. A lot of members find out they have better options. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I never requested anything."`, a: `You're right, and I appreciate you taking my call. American Senior Benefits is a national partner of ${ph('Group Name')} and part of what we do is reach out to members to make sure they know about the benefits available to them. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  ltc: [
+    { q: `"I'm not interested."`, a: `I hear you. As part of your ${ph('Group Name')} membership this is actually included as an educational benefit. I just want to make sure you know what's available to you. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already have long-term care coverage."`, a: `Good. You're ahead of most people. What I see a lot though is policies where the cost has gone up or the benefits have quietly changed. Let me take a quick look and make sure everything still lines up for you. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"That's too expensive."`, a: `I hear that a lot, and most people are surprised at what the options actually look like once we sit down. Let me show you what's out there. If it doesn't make sense, no hard feelings. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I'll just pay out of pocket."`, a: `A lot of people say that. What I like to do is just lay out what a year of care actually costs so you can see the full picture. Then it's your call. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"My kids will take care of me."`, a: `That's great that you have that kind of family. What most people realize is that having a plan actually takes the weight off their kids instead of putting it on them. I just want to make sure you're in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  finalExpense: [
+    { q: `"I'm not interested."`, a: `I get it. I'm just getting the information out to people who requested it. I want to make sure you and your family are in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already have life insurance."`, a: `Good, that puts you ahead. What I run into a lot is people who have coverage but it's either not enough or they're paying more than they need to. Let me take a look and make sure everything still lines up. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"My spouse handles all of that."`, a: `Perfect. Let's find a time that works for both of you. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better for you two?` },
+    { q: `"I can't afford it."`, a: `I hear that. Most people are surprised at how affordable the options actually are. Some plans run just a couple bucks a day. Let me show you and you can decide if it makes sense. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want to think about that."`, a: `Nobody does, I get it. But the people who take the time to put a plan together are the ones whose families don't have to scramble later. I just want to make sure you and your family are in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  tanyaOrphan: [
+    { q: `"I don't need a new agent."`, a: `Totally get it. I'm not here to change anything on your policy. Chris Gilley's clients are being taken care of through our office now and I just want to make sure you still have someone in your corner. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I'm happy with my policy."`, a: `That's great. I just want to stop by, introduce myself, and make sure everything's still current and working for you and your family. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"What happened to Chris?"`, a: `Chris is no longer servicing policies through our office, so I've been assigned as your new point of contact. I just want to make sure you're taken care of and everything is still in good shape. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  retirement: [
+    { q: `"I'm not interested."`, a: `Fair enough. I just help people make sure their retirement income is protected and working as hard as it can. I want to make sure you're in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already have a financial advisor."`, a: `Good, you should. I work alongside advisors all the time. What I focus on is specifically the income protection side, which is a different lane. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I'm already set."`, a: `That's great. I just want to make sure you've seen everything that's available so there aren't any gaps. If you're all good, I'll tell you that. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want to move my money."`, a: `Not asking you to move a dime. I just lay out what the options look like so you have the full picture. What you do with it is 100% up to you. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I'm still working."`, a: `That's actually the best time to look at this. The earlier you get the plan locked in, the stronger position you're in when the day comes. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  orphanMedicare: [
+    { q: `"I don't need a new agent."`, a: `Totally get it. I'm not here to change anything on your plan. I just want to make sure you still have somebody in your corner looking out for you. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I'm happy with what I have."`, a: `That's what I like to hear. I just want to make sure everything's current and nothing's changed that you should know about. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I haven't heard from anyone in a long time."`, a: `I know, and that's on us. That's exactly why I'm reaching out. I want to make sure you're taken care of going forward. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"Who are you?"`, a: `I'm ${ph('Agent Name')} with Key Retirement Solutions. Your previous agent is no longer with us, so I've been assigned as your new point of contact. I just want to make sure everything's still working for you. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  bankersOrphan: [
+    { q: `"I'm happy with my Bankers policy."`, a: `Good to hear. What I find a lot though is that Bankers policies aren't always as competitive as they used to be. I just want to take a look and make sure you're still getting the best value. If you are, I'll tell you that. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I'm not interested."`, a: `I hear you. I just specialize in reviewing Bankers Life policies because a lot of people find out they can get better benefits for the same or lower cost. I just want to make sure you're in the best position possible. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want to switch."`, a: `Not asking you to. I just want to lay out what's available so you can see how your current policy stacks up. If Bankers is still the best fit, I'll tell you that. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I haven't heard from Bankers in a while."`, a: `That's actually pretty common, and that's why I'm reaching out. I want to make sure you still have someone looking out for you and your policy is still working the way it should. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  seminarSS: [
+    { q: `"I already got the information I needed."`, a: `Good deal. I just want to make sure all your questions got answered and nothing got missed from the seminar. I want to make sure you're in the best position possible with your Social Security strategy. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I was just curious."`, a: `That's how most people start. And the ones who sit down usually walk away glad they did. There's usually more to the Social Security picture than what we can cover in a seminar. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I'm not interested."`, a: `No worries. I just want to make sure you got everything you came for when you signed up for the seminar. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already have a financial advisor."`, a: `Good. What I focus on is specifically the Social Security optimization side, which is a little different from what most advisors look at. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ],
+
+  seminarMedicare: [
+    { q: `"I already got the information I needed."`, a: `Good deal. I just want to make sure all your questions got answered and nothing got missed from the seminar. I want to make sure you're in the best position possible with your Medicare. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I was just curious."`, a: `That's how most people start. And the ones who sit down usually walk away glad they did. There's usually more to it than what we can cover in a seminar. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I'm not interested."`, a: `No worries. I just want to make sure you got everything you came for when you signed up for the seminar. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I already have Medicare."`, a: `I'd be worried if you didn't! That's actually why I'm following up. Most people who come to the seminars find out there's at least one thing they didn't know about. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` },
+    { q: `"I don't want you coming to my house."`, a: `No problem. I can meet you at my office or a coffee shop, whatever's easiest. I'll be in your area in ${ph('City')} next week. Do mornings or afternoons work better?` }
+  ]
+};
+
+let objCounter = 0;
+
+const buildObjections = (list) => {
+  let html = `<div class="objections-section"><div class="objections-header">Objection handlers</div>`;
+  html += `<div class="objection-reminder"><div class="objection-reminder-icon">&#8617;</div>Always circle back to the date and time. Every response should end with the assumptive close: "I'll be in your area in [City] next week. Do mornings or afternoons work better?"</div>`;
+  list.forEach((o) => {
+    const id = objCounter++;
+    html += `<div class="objection-item"><div class="objection-q" onclick="toggleObj(${id})"><span>${o.q}</span><span class="chevron" id="chev-${id}">&#9660;</span></div><div class="objection-a" id="obj-${id}">${o.a}</div></div>`;
+  });
+  html += `</div>`;
+  return html;
+};
+
+const pages = {
+  'med-standard': {
+    badge: 'Medicare',
+    title: 'Medicare -- standard',
+    subtitle: 'Use for: Google Medicare, AIL Medicare, Integrity Medicare, HSN, Caboom, Live Leads, Google Disability',
+    context: 'These leads requested Medicare information. Lead with the idea that you have something ready for them.',
+    leadTypes: ['Google - Medicare', 'AIL - Medicare', 'Integrity - Medicare', 'HSN - Medicare', 'Caboom Leads - Medicare', 'Live Leads - Medicare', 'Google - Disability', 'Data'],
+    scripts: [{ label: 'Standard Medicare opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because I have your updated Medicare information here in my office. I wanted to let you know it was ready for delivery and I needed to get yours out to you. I'm actually going to be out near you in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'medicare'
+  },
+  'med-t65': {
+    badge: 'Medicare',
+    title: 'Medicare -- T65 (turning 65)',
+    subtitle: 'Use for: People approaching their 65th birthday who are new to Medicare',
+    context: 'These leads are turning 65 and need to understand their Medicare options for the first time. This is an educational conversation. Lead with the idea that you help people navigate the transition so they don\'t miss important deadlines or make costly mistakes.',
+    leadTypes: ['Filter by Date of Birth (turning 65)'],
+    scripts: [{ label: 'T65 opener', text: `Hi, is ${ph('First Name')} available? ... Hey ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call about your Medicare information for your big birthday coming up in ${ph('Birthday Month')}. Wanted to let you know, we had your information in our office. It was ready for delivery and I needed to get yours out to you. I wanted to see if the morning or afternoon would be a better time to bring that by.` }],
+    objections: 't65'
+  },
+  'med-rate': {
+    badge: 'Medicare',
+    title: 'Medicare -- rate reduction',
+    subtitle: 'Use interchangeably with the standard Medicare script for the same lead types',
+    context: 'Use this version when you know or can reference their current carrier. Works especially well as an alternate opener.',
+    leadTypes: ['Google - Medicare', 'AIL - Medicare', 'Integrity - Medicare', 'HSN - Medicare', 'Caboom Leads - Medicare', 'Live Leads - Medicare', 'Google - Disability', 'Data'],
+    scripts: [{ label: 'Rate reduction opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call about your Medicare plan through ${ph('Carrier')}. I wanted to let you know that due to the changes in Medicare, I need to review those with you to see if I can qualify you for a rate reduction on your plan. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better to bring that by.` }],
+    objections: 'medicareRate'
+  },
+  'med-datacapture': {
+    badge: 'Medicare',
+    title: 'Data capture',
+    subtitle: 'Use for: Data Capture leads where carrier is known',
+    context: 'You already know their Medicare carrier. Lead directly with their plan and position the call as a rate review. Same structure as the rate reduction script.',
+    leadTypes: ['Medicare Carrier is not empty'],
+    scripts: [{ label: 'Data capture opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call about your ${ph('Carrier')} Medicare plan. Due to the changes in Medicare, I needed to review those with you to see if I can qualify you for a rate reduction on your plan. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'medicareRate'
+  },
+  'med-uhcgroup': {
+    badge: 'Medicare',
+    title: 'UHC group -- Medicare (turning 65)',
+    subtitle: 'Use for: UHC Group Medicare leads',
+    context: 'These people are currently on a UnitedHealthcare employer group plan and are approaching Medicare eligibility. They need to understand their transition options before their deadline.',
+    leadTypes: ['UHC Group - Medicare'],
+    scripts: [{ label: 'UHC group opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because I have your updated Medicare information here in my office. I wanted to let you know that based on your current UnitedHealthcare group plan, there are some important changes coming up as you transition to Medicare that I need to go over with you. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'uhcGroup'
+  },
+  'med-uhcclosed': {
+    badge: 'Medicare',
+    title: 'UHC closed lost -- Medicare',
+    subtitle: 'Use for: UHC Closed Lost Medicare leads',
+    context: 'These leads requested UnitedHealthcare Medicare information in the past but went cold. Re-engage by acknowledging their prior interest and offering updated info.',
+    leadTypes: ['UHC Closed Lost - Medicare'],
+    scripts: [{ label: 'UHC closed lost opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because a while back you had reached out about a UnitedHealthcare Medicare plan and I wanted to make sure we got that taken care of for you. I have your updated Medicare information here in my office and I needed to get it out to you. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'uhcClosed'
+  },
+  'med-wellcare': {
+    badge: 'Medicare',
+    title: 'Wellcare leads -- Medicare',
+    subtitle: 'Use for: Wellcare Leads Medicare',
+    context: 'These leads requested information on a Wellcare Medicare plan. Re-engage by acknowledging their prior interest and presenting broader Medicare options.',
+    leadTypes: ['Wellcare Leads - Medicare'],
+    scripts: [{ label: 'Wellcare leads opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because a while back you had reached out about a Wellcare Medicare plan and I wanted to make sure we got that taken care of for you. I have your updated Medicare information here in my office and I needed to get it out to you. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'wellcare'
+  },
+  'med-irmaa': {
+    badge: 'Retirement planning',
+    title: 'IRMAA leads',
+    subtitle: 'Use for: IRMAA Leads -- Retirement Planning',
+    context: 'These leads specifically requested information about IRMAA -- the income-related surcharge added to Medicare premiums. Lead with the surcharge reduction angle.',
+    leadTypes: ['IRMAA Leads - Retirement Planning'],
+    scripts: [{ label: 'IRMAA opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because you had reached out about IRMAA -- that's the additional surcharge that gets added on top of your Medicare premium based on your income. I have some information here in my office on strategies we use to help people reduce or potentially eliminate that surcharge and I needed to get it out to you. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'irmaa'
+  },
+  'aff-amlegwellcare': {
+    badge: 'Affinity',
+    title: 'Affinity -- AmLeg Wellcare',
+    subtitle: 'Use for: Affinity - AmLeg - Wellcare leads',
+    context: 'These are American Legion members known to have a Wellcare drug plan. Introduce as American Senior Benefits, reference the Legion partnership, and position the call as a complimentary member benefit review.',
+    leadTypes: ['Affinity - AmLeg - Wellcare'],
+    scripts: [{ label: 'AmLeg Wellcare opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with American Senior Benefits. I was giving you a call because American Senior Benefits is a national partner of the American Legion and as a member one of your benefits is a complimentary review of your Medicare drug plan. We have you on record as having a Wellcare drug plan and I wanted to reach out to make sure we got that review taken care of for you. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'affinityWellcare'
+  },
+  'aff-requested': {
+    badge: 'Affinity',
+    title: 'Affinity -- requested info',
+    subtitle: 'Use for: AmLeg Medicare, AmLeg LTC, SUAA Retirement, SUAA LTC, Elks LTC',
+    context: 'These leads came through their group membership and specifically requested information. Always name the group and reference the American Senior Benefits partnership.',
+    leadTypes: ['Affinity - AmLeg - LTC', 'Affinity - SUAA - Retirement Planning', 'Affinity - SUAA - LTC', 'Affinity - Eagles - LTC', 'Affinity - Amvets - LTC', 'Affinity - Elks - LTC'],
+    scripts: [{ label: 'Affinity requested info opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because through your ${ph('Group Name')} membership, you had reached out to American Senior Benefits requesting information on ${ph('Product')}. American Senior Benefits is a national partner of ${ph('Group Name')} and it's our job to make sure we get that information out to you. I have it here in my office and I'm going to be in your area in ${ph('City')} next week -- wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'affinityRequested'
+  },
+  'aff-cold': {
+    badge: 'Affinity',
+    title: 'Affinity -- cold list',
+    subtitle: 'Use for: Eagles List, Amvets List',
+    context: 'These leads did not request information -- they were provided as a member list. Lead with the group partnership and the benefits available to members.',
+    leadTypes: ['Affinity - Eagles List', 'Affinity - Amvets List'],
+    scripts: [{ label: 'Affinity cold list opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because American Senior Benefits is a national partner of ${ph('Group Name')} and as a member we wanted to make sure you were aware of the benefits available to you. I have some information here in my office specifically for ${ph('Group Name')} members and I needed to get it out to you. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'affinityCold'
+  },
+  'ltc-affinity': {
+    badge: 'Long term care',
+    title: 'LTC -- affinity groups',
+    subtitle: 'Use for: AmLeg LTC, SUAA LTC, Eagles LTC, Amvets LTC, Elks LTC',
+    context: 'All LTC affinity leads requested information through their group membership. Use the affinity requested info script and drop in the group name.',
+    leadTypes: ['Affinity - AmLeg - LTC', 'Affinity - SUAA - LTC', 'Affinity - Eagles - LTC', 'Affinity - Amvets - LTC', 'Affinity - Elks - LTC'],
+    scripts: [{ label: 'LTC affinity opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because through your ${ph('Group Name')} membership, you had reached out to American Senior Benefits requesting information on long term care. I have that information here in my office and I needed to get it out to you. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'ltc'
+  },
+  'fe-standard': {
+    badge: 'Final expense',
+    title: 'Final expense -- standard',
+    subtitle: 'Use for: ASB Final Expense, Banner Ads Final Expense, Google SS Survivor, Tanya Gilley Leads',
+    context: 'These leads requested information on life insurance. Avoid using the term "final expense" on the call -- lead with protecting their family.',
+    leadTypes: ['ASB - Final Expense', 'Banner Ads - Final Expense', 'Google - SS Survivor - FE', 'Tanya Gilley Leads - Final Expense'],
+    scripts: [{ label: 'Final expense opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because you had reached out requesting information on life insurance to protect your family. I have that information here in my office and I needed to get it out to you. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'finalExpense'
+  },
+  'fe-tanya': {
+    badge: 'Final expense',
+    title: 'Tanya Gilley orphan',
+    subtitle: 'Use for: Tanya Gilley Orphan leads only',
+    context: 'These were active clients of agent Chris Gilley who purchased a life insurance policy. Introduce yourself as their new point of contact -- warm and service-oriented tone.',
+    leadTypes: ['Tanya Gilley Orphan'],
+    scripts: [{ label: 'Tanya Gilley orphan opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because you have a life insurance policy through our office that was previously serviced by Chris Gilley. I just wanted to reach out, introduce myself as your new point of contact, and make sure everything is still working for you and your family. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for me to stop by.` }],
+    objections: 'tanyaOrphan'
+  },
+  'ret-standard': {
+    badge: 'Retirement planning',
+    title: 'Retirement planning -- standard',
+    subtitle: 'Use for: Google Retirement, SUAA Retirement Planning',
+    context: 'These leads requested retirement planning information. Note: SUAA Retirement leads should also reference the group partnership using the Affinity Requested Info script.',
+    leadTypes: ['Google - Retirement', 'Affinity - SUAA - Retirement Planning'],
+    scripts: [{ label: 'Retirement planning opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because you had reached out requesting information on retirement planning. I have that information here in my office and I needed to get it out to you. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'retirement'
+  },
+  'orp-medicare': {
+    badge: 'Orphan',
+    title: 'Orphan -- Medicare',
+    subtitle: 'Use for: Orphan leads with a Medicare plan',
+    context: 'These are existing clients whose agent left the company. They have an active Medicare plan. Introduce yourself as their new point of contact -- warm and service-oriented tone.',
+    leadTypes: ['Orphan'],
+    scripts: [{ label: 'Orphan Medicare opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because you have a Medicare plan through our office and the agent who had been working with you is no longer with us. I just wanted to reach out, introduce myself as your new point of contact, and make sure everything is still working for you. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for me to stop by.` }],
+    objections: 'orphanMedicare'
+  },
+  'orp-bankers': {
+    badge: 'Orphan',
+    title: "Banker's orphan",
+    subtitle: "Use for: Banker's Orphan leads",
+    context: "These leads previously worked with Bankers Life. Lead with the value of a policy review -- Bankers policies are often not competitive and you can usually find them better benefits.",
+    leadTypes: ["Banker's Orphan"],
+    scripts: [{ label: "Banker's orphan opener", text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because I understand you had worked with Bankers Life in the past. We specialize in reviewing those policies because oftentimes people find that they are not as competitive as they once were and we can usually get them better benefits for the same or lower cost. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for you to bring that by.` }],
+    objections: 'bankersOrphan'
+  },
+  'sem-ss': {
+    badge: 'Seminar',
+    title: 'SS seminar follow-up',
+    subtitle: 'Use for: SS Seminar leads',
+    context: 'These leads signed up for a Social Security seminar. A different agent is following up -- keep the tone warm and informational.',
+    leadTypes: ['SS Seminar'],
+    scripts: [{ label: 'SS seminar opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because you had signed up for one of our Social Security seminars a while back and I wanted to make sure we got you the information you were looking for. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for me to stop by.` }],
+    objections: 'seminarSS'
+  },
+  'sem-medicare': {
+    badge: 'Seminar',
+    title: 'Medicare seminar follow-up',
+    subtitle: 'Use for: Medicare Seminar leads',
+    context: 'These leads signed up for a Medicare seminar. A different agent is following up -- keep the tone warm and informational.',
+    leadTypes: ['Medicare Seminar'],
+    scripts: [{ label: 'Medicare seminar opener', text: `Hi, is this ${ph('First Name')}? ... Hi ${ph('First Name')}, this is ${ph('Agent Name')} with Key Retirement Solutions. I was giving you a call because you had signed up for one of our Medicare seminars a while back and I wanted to make sure we got you the information you were looking for. I'm going to be in your area in ${ph('City')} next week and wanted to see if the morning or afternoon would work better for me to stop by.` }],
+    objections: 'seminarMedicare'
+  }
+};
+
+function toggleObj(i) {
+  const el = document.getElementById('obj-' + i);
+  const chev = document.getElementById('chev-' + i);
+  if (el && chev) {
+    el.classList.toggle('open');
+    chev.classList.toggle('open');
+  }
+}
+
+function show(id) {
+  objCounter = 0;
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el => {
+    if (el.getAttribute('onclick') === `show('${id}')`) el.classList.add('active');
+  });
+  const page = pages[id];
+  if (!page) return;
+  let scriptsHtml = '';
+  page.scripts.forEach(s => {
+    scriptsHtml += `<div class="script-card"><div class="script-label">${s.label}</div><div class="script-text">${s.text}</div></div>`;
+  });
+  let leadTypesHtml = '';
+  if (page.leadTypes && page.leadTypes.length > 0) {
+    leadTypesHtml = `<div class="lead-types-section">
+      <div class="lead-types-header">Lead types for this script</div>
+      <div class="lead-types-hint">Match your leads to this script using the Lead Type field in GHL, or the filter noted below.</div>
+      <div class="lead-types-tags">${page.leadTypes.map(t => {
+        const isFilter = t.startsWith('Filter by') || t.includes('is not empty');
+        return `<span class="lead-tag${isFilter ? ' lead-tag-filter' : ''}">${t}</span>`;
+      }).join('')}</div>
+    </div>`;
+  }
+  const objList = obj[page.objections] || obj.medicare;
+  document.getElementById('main-content').innerHTML = `
+    <div class="page-badge">${page.badge}</div>
+    <div class="page-title">${page.title}</div>
+    <div class="page-subtitle">${page.subtitle}</div>
+    <div class="context-box"><div class="context-icon">i</div><div class="context-text">${page.context}</div></div>
+    ${leadTypesHtml}
+    ${scriptsHtml}
+    <div class="divider"></div>
+    ${buildObjections(objList)}
+  `;
+}
+
+show('med-standard');
+</script>
