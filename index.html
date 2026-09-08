@@ -488,6 +488,7 @@ body {
 
     <div class="nav-section">
       <div class="nav-group-label">Affinity</div>
+      <div class="nav-item" onclick="show('aff-eagles')"><span class="nav-dot"></span>Eagles approved phone script</div>
       <div class="nav-item" onclick="show('aff-amlegwellcare')"><span class="nav-dot"></span>AmLeg Wellcare</div>
       <div class="nav-item" onclick="show('aff-requested')"><span class="nav-dot"></span>Requested info</div>
       <div class="nav-item" onclick="show('aff-cold')"><span class="nav-dot"></span>Cold list</div>
@@ -700,6 +701,17 @@ const buildObjections = (list) => {
 };
 
 const pages = {
+  'aff-eagles': {
+    badge: 'Affinity',
+    title: 'Eagles approved phone script',
+    subtitle: 'Use for: Eagles members',
+    context: 'American Senior Benefits and Eagles national partnership. Use the approved wording below, including the webinar consideration when a member is not comfortable with an immediate face to face.',
+    scripts: [{ label: 'Eagles approved phone script', text: `Hey (First Name). This is ____________ with American Senior Benefits. How are you this morning/afternoon?<br><br>
+I am calling to introduce that American Senior Benefits is a new partner with the Eagles nationally and because of this partnership we are reaching out to introduce ourselves and schedule a free financial consultation.<br><br>
+American Senior Benefits specializes in helping Eagles members with all areas of retirement planning from their health to their wealth. I’m going to be in your neighborhood on ______________, and was wondering if mornings or afternoons were better to catch you at home for 30 minutes to just stop by and introduce myself and the services available to you now through this partnership. <em>{default to webinar consideration if member is not comfortable with immediate face to face}</em><br><br>
+Are you married by chance? Will your spouse be available at that time as well?` }],
+    objections: null
+  },
   'med-standard': {
     badge: 'Medicare',
     title: 'Medicare -- standard',
@@ -913,8 +925,7 @@ function show(id) {
     <div class="context-box"><div class="context-icon">i</div><div class="context-text">${page.context}</div></div>
     ${leadTypesHtml}
     ${scriptsHtml}
-    <div class="divider"></div>
-    ${buildObjections(objList)}
+    ${page.objections === null ? '' : `<div class="divider"></div>${buildObjections(objList)}`}
   `;
 }
 
